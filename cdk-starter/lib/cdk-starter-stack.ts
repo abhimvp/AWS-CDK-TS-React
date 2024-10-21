@@ -1,4 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
+import { CfnOutput } from 'aws-cdk-lib';
 import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
@@ -29,10 +30,14 @@ export class CdkStarterStack extends cdk.Stack { // empty cloudformation stack
      }
     });
     // let's see L2 Construct
-    new Bucket(this,'MyL2Bucket',{
+    const myL2Bucket = new Bucket(this,'MyL2Bucket',{
       lifecycleRules:[{
-        expiration: cdk.Duration.days(2)
+        expiration: cdk.Duration.days(4)
       }]
+    });
+    // console.log('bucket name '+myL2Bucket.bucketName); // test this with cdk synth
+    new CfnOutput(this,'MyL2BucketName',{
+      value:myL2Bucket.bucketName
     });
     // let's see L3 Construct
     new L3Bucket(this,'MyL3Bucket',3);

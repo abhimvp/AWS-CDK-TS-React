@@ -6,16 +6,17 @@
     aws-cli/2.18.1 Python/3.12.6 Windows/11 exe/AMD64
   ```
 - the configure aws cli
-    ```
-    C:\Users\abhis>aws configure
-    AWS Access Key ID [****************Abhi]: PROVIDE_ACCESS_KEY_FROM_USER_SECURITY_CREDENTIALS
-    AWS Secret Access Key [****************Abhi]: PROVIDE_SECRET_KEY_FROM_USER_SECURITY_CREDENTIALS
-    Default region name [us-east-1]: ap-south-1
-    Default output format [json]: json
-    ```
+  ```
+  C:\Users\abhis>aws configure
+  AWS Access Key ID [****************Abhi]: PROVIDE_ACCESS_KEY_FROM_USER_SECURITY_CREDENTIALS
+  AWS Secret Access Key [****************Abhi]: PROVIDE_SECRET_KEY_FROM_USER_SECURITY_CREDENTIALS
+  Default region name [us-east-1]: ap-south-1
+  Default output format [json]: json
+  ```
   - To test it's working do `aws s3 ls` - shouldn't return any error and returns empty as we don't have anything in aws account to list s3 bucket info
 
 # Basics of cloudForamtion and CDK
+
 ```
 $ npm i -g aws-cdk
 
@@ -67,14 +68,17 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 Executing npm install...
 ✅ All done
 ```
+
 -> bin folder contains the code to initialize our application
 -> lib folder contains actual cloud formation stacks
 -> In package.json -> "constructs": "^10.0.0", - required for us the types and functionality that will generate CF templates , "ts-node": "^10.9.2", - helps us to execute typescript code
--> cdk.json -> configues the cdk inside this project -> app is the entry point into our project 
+-> cdk.json -> configues the cdk inside this project -> app is the entry point into our project
+
 - "app": "npx ts-node --prefer-ts-exts bin/cdk-starter.ts" -> execute ts-node library executes typescript code & path to bin folder and our starter file
-https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html - whole documentation of aws cdk construct - https://github.com/aws/aws-cdk
+  https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html - whole documentation of aws cdk construct - https://github.com/aws/aws-cdk
 
 - deploy basic stack to AWS
+
 ```
 abhis@Tinku MINGW64 ~/Desktop/AWS/AWS-CDK-TS-React/cdk-starter (main)
 $ aws s3 ls
@@ -96,14 +100,16 @@ CDKToolkit |  0/12 | 3:35:14 AM | CREATE_IN_PROGRESS   | AWS::S3::Bucket        
 CDKToolkit |  1/12 | 3:35:16 AM | CREATE_IN_PROGRESS   | AWS::S3::Bucket         | StagingBucket Resource creation Initiated
 CDKToolkit |  2/12 | 3:35:16 AM | CREATE_COMPLETE      | AWS::ECR::Repository    | ContainerAssetsRepository
 CDKToolkit |  2/12 | 3:35:16 AM | CREATE_IN_PROGRESS   | AWS::IAM::Role          | LookupRole Resource creation Initiated
-CDKToolkit |  3/12 | 3:35:31 AM | CREATE_COMPLETE      | AWS::S3::Bucket         | StagingBucket 
-CDKToolkit |  3/12 | 3:35:32 AM | CREATE_IN_PROGRESS   | AWS::S3::BucketPolicy   | StagingBucketPolicy 
+CDKToolkit |  3/12 | 3:35:31 AM | CREATE_COMPLETE      | AWS::S3::Bucket         | StagingBucket
+CDKToolkit |  3/12 | 3:35:32 AM | CREATE_IN_PROGRESS   | AWS::S3::BucketPolicy   | StagingBucketPolicy
 .....
-CDKToolkit | 12/12 | 3:35:55 AM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CDKToolkit 
+CDKToolkit | 12/12 | 3:35:55 AM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CDKToolkit
  ✅  Environment aws://AWS_ACCOUNT/ap-south-1 bootstrapped.
 ```
+
 - In Our CF , we have new stack - CDKToolKit stack - This stack includes resources needed to deploy AWS CDK apps into this environment
-- Inside Stack Resources - have an s3 bucket - StagingBucket - this bucket will contain files required by AWS CDK in order to deploy 
+- Inside Stack Resources - have an s3 bucket - StagingBucket - this bucket will contain files required by AWS CDK in order to deploy
+
 ```
 abhis@Tinku MINGW64 ~/Desktop/AWS/AWS-CDK-TS-React/cdk-starter (main)
 $ cdk deploy
@@ -117,18 +123,19 @@ CdkStarterStack: deploying... [1/1]
 CdkStarterStack: creating CloudFormation changeset...
 CdkStarterStack | 0/2 | 3:41:39 AM | REVIEW_IN_PROGRESS   | AWS::CloudFormation::Stack | CdkStarterStack User Initiated
 CdkStarterStack | 0/2 | 3:41:45 AM | CREATE_IN_PROGRESS   | AWS::CloudFormation::Stack | CdkStarterStack User Initiated
-CdkStarterStack | 0/2 | 3:41:47 AM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata) 
+CdkStarterStack | 0/2 | 3:41:47 AM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata)
 CdkStarterStack | 0/2 | 3:41:47 AM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata) Resource creation Initiated
-CdkStarterStack | 1/2 | 3:41:48 AM | CREATE_COMPLETE      | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata) 
-CdkStarterStack | 2/2 | 3:41:48 AM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CdkStarterStack 
+CdkStarterStack | 1/2 | 3:41:48 AM | CREATE_COMPLETE      | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata)
+CdkStarterStack | 2/2 | 3:41:48 AM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CdkStarterStack
  ✅  CdkStarterStack
 ✨  Deployment time: 12.15s
 Stack ARN:
 arn:aws:cloudformation:ap-south-1:AWS_ACCOUNT:stack/CdkStarterStack/**********
 ✨  Total time: 18.14s
 ```
+
 - what cdk deploy did? - we have cdk.out file - contains the CF template that is actually deployed to AWS - everytime - does two things - generates templates & deploys
-cdk synth - will take our code and only generate a template
+  cdk synth - will take our code and only generate a template
 
 # Important concept of CDK is CDK constructs & there are multiple types of constructs
 
@@ -137,3 +144,69 @@ Building blocks of our CDK application
 ![alt text](images/image-2.png)
 
 -> Also lets see how we can use CDK constructs to create diff aws resources
+
+# CDK Commands
+
+- `cdk init app --language typescript` - specify app to initialize the project
+- `cdk bootsrap` - before deploying project - we call bootstrap in order to make a started environment for all our applications
+- `cdk synth` - takes our code & generate template for each stacks
+- `cdk deploy` - deploy them too aws & we can specify name of the stack when deploying a specific stack
+- `cdk list` - lists the stacks we created
+- `cdk diff` - display what we have locally and what we have remotely deployed in our CF env
+
+```
+Stack CdkStarterStack
+Resources
+[~] AWS::S3::Bucket MyL2Bucket MyL2BucketC842E3F4
+ └─ [~] LifecycleConfiguration
+     └─ [~] .Rules:
+         └─ @@ -1,6 +1,6 @@
+            [ ] [
+            [ ]   {
+            [-]     "ExpirationInDays": 2,
+            [+]     "ExpirationInDays": 4,
+            [ ]     "Status": "Enabled"
+            [ ]   }
+            [ ] ]
+✨  Number of stacks with differences: 1
+```
+
+- `cdk doctor`
+
+```
+ cdk doctor
+ℹ️ CDK Version: 2.162.1 (build 10aa526)
+ℹ️ AWS environment variables:
+  - AWS_NODEJS_CONNECTION_REUSE_ENABLED = 1
+  - AWS_SDK_LOAD_CONFIG = 1
+  - AWS_STS_REGIONAL_ENDPOINTS = regional
+ℹ️ No CDK environment variables
+```
+
+- `cdk destroy` - deletes our stack
+
+# Cloud Formation outputs
+
+```
+cdk synth
+bucket name ${Token[TOKEN.31]}
+```
+
+if we want information only CF has we can call CF outputs `CfnOutput`
+
+```
+cdk deploy
+
+CdkStarterStack: deploying... [1/1]
+CdkStarterStack: creating CloudFormation changeset...
+CdkStarterStack | 0/4 | 4:33:18 AM | UPDATE_IN_PROGRESS   | AWS::CloudFormation::Stack | CdkStarterStack User Initiated
+CdkStarterStack | 0/4 | 4:33:21 AM | UPDATE_IN_PROGRESS   | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata)
+CdkStarterStack | 0/4 | 4:33:22 AM | UPDATE_IN_PROGRESS   | AWS::S3::Bucket    | MyL2Bucket (MyL2Bucket***)
+CdkStarterStack | 1/4 | 4:33:22 AM | UPDATE_COMPLETE      | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata)
+CdkStarterStack | 2/4 | 4:33:43 AM | UPDATE_COMPLETE      | AWS::S3::Bucket    | MyL2Bucket (MyL2Bucket***)
+CdkStarterStack | 3/4 | 4:33:44 AM | UPDATE_COMPLETE_CLEA | AWS::CloudFormation::Stack | CdkStarterStack
+CdkStarterStack | 4/4 | 4:33:45 AM | UPDATE_COMPLETE      | AWS::CloudFormation::Stack | CdkStarterStack
+ ✅  CdkStarterStack
+Outputs:
+CdkStarterStack.MyL2BucketName = cdkstarterstack-myl2bucket**********
+```

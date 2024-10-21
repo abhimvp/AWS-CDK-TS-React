@@ -1,4 +1,5 @@
 # AWS-CDK-TS-React
+https://github.com/alexhddev
 
 - create user for command line interface - AWS CLI - from `AWS IAM` - GO to IAM > users -> create user -> name: cli-access -> attach Administrator Access Policy to be able to deploy resources -> create - Now let's Install AWS CLI - it's already installed -
   ```
@@ -223,3 +224,8 @@ CdkStarterStack: destroying... [1/1]
  ✅  CdkStarterStack: destroyed
 ```
 Eveen after we deleted our stack we can still see L2 and L3 buckets in S3 , because by default CDK creates a s3 bucket with a different retention policy. let's check  [documentation](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html) for this - removePolicy - by default - it doesn't delete resources created from cdk constructs for aws resources
+
+# CDK intermediate topics
+![alt text](images/image-3.png)
+### CDk IDs
+when we create a construct of Bucket - we get a logicalID(required by CF to use this ID) and Physical ID(required by AWS) when we deploy the stack

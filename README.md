@@ -241,3 +241,8 @@ The most popular used one is `ref` function - helps us reference different infor
 ![alt text](images/image-6.png)
 [CF best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
 ![alt text](images/image-7.png)
+### Cross stack references
+Let's see how we can access values through references btw two stacks
+- First deploy - `cdk deploy PhotosStack`
+-  Then deploy - `ck deploy PhotosHandlerStack` to access photos-bucket arn from above stack
+- but this is not a best practice

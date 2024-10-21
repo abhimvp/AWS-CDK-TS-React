@@ -215,3 +215,11 @@ CdkStarterStack.MyL2BucketName = cdkstarterstack-myl2bucket**********
 * Sometimes when we deploy a stack , we want to specify some parameters before deploying it
     * log level of application 
 `cdk deploy --parameters duration = 9`
+```
+ cdk destroy CdkStarterStack
+Are you sure you want to delete: CdkStarterStack (y/n)? y
+CdkStarterStack: destroying... [1/1]
+
+ ✅  CdkStarterStack: destroyed
+```
+Eveen after we deleted our stack we can still see L2 and L3 buckets in S3 , because by default CDK creates a s3 bucket with a different retention policy. let's check  [documentation](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html) for this - removePolicy - by default - it doesn't delete resources created from cdk constructs for aws resources

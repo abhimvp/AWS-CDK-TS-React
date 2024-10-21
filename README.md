@@ -210,3 +210,8 @@ CdkStarterStack | 4/4 | 4:33:45 AM | UPDATE_COMPLETE      | AWS::CloudFormation:
 Outputs:
 CdkStarterStack.MyL2BucketName = cdkstarterstack-myl2bucket**********
 ```
+# CDK Deployment parameters
+* How we can provide data to our deployment using CF construct called CF parameters
+* Sometimes when we deploy a stack , we want to specify some parameters before deploying it
+    * log level of application 
+`cdk deploy --parameters duration = 9`

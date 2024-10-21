@@ -236,3 +236,8 @@ Built-in functions to help manage our stacks
 If we want to choose one resource first to be created before another resource. This is important because one resource needs information from another resource. Here is the point where cloud formation instrinsic funtions come into place.
 ![alt text](images/image-5.png)
 The most popular used one is `ref` function - helps us reference different information around CF template
+
+### Handling multiple stacks
+![alt text](images/image-6.png)
+[CF best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+![alt text](images/image-7.png)

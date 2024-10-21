@@ -266,3 +266,7 @@ Let's see how we can access values through references btw two stacks
 ### ASpects
 ![alt text](images/image-8.png)
 ![alt text](images/image-9.png)
+
+### deleting stacks
+![alt text](images/image-10.png)
+we delete UiStack -> then ApiStack ->lambdaStack-> authStack -> dataStack

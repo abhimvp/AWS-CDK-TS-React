@@ -1,4 +1,5 @@
 # AWS-CDK-TS-React
+
 https://github.com/alexhddev
 
 - create user for command line interface - AWS CLI - from `AWS IAM` - GO to IAM > users -> create user -> name: cli-access -> attach Administrator Access Policy to be able to deploy resources -> create - Now let's Install AWS CLI - it's already installed -
@@ -211,11 +212,13 @@ CdkStarterStack | 4/4 | 4:33:45 AM | UPDATE_COMPLETE      | AWS::CloudFormation:
 Outputs:
 CdkStarterStack.MyL2BucketName = cdkstarterstack-myl2bucket**********
 ```
+
 # CDK Deployment parameters
-* How we can provide data to our deployment using CF construct called CF parameters
-* Sometimes when we deploy a stack , we want to specify some parameters before deploying it
-    * log level of application 
-`cdk deploy --parameters duration = 9`
+
+- How we can provide data to our deployment using CF construct called CF parameters
+- Sometimes when we deploy a stack , we want to specify some parameters before deploying it \* log level of application
+  `cdk deploy --parameters duration = 9`
+
 ```
  cdk destroy CdkStarterStack
 Are you sure you want to delete: CdkStarterStack (y/n)? y
@@ -223,14 +226,19 @@ CdkStarterStack: destroying... [1/1]
 
  ✅  CdkStarterStack: destroyed
 ```
-Eveen after we deleted our stack we can still see L2 and L3 buckets in S3 , because by default CDK creates a s3 bucket with a different retention policy. let's check  [documentation](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html) for this - removePolicy - by default - it doesn't delete resources created from cdk constructs for aws resources
+
+Eveen after we deleted our stack we can still see L2 and L3 buckets in S3 , because by default CDK creates a s3 bucket with a different retention policy. let's check [documentation](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html) for this - removePolicy - by default - it doesn't delete resources created from cdk constructs for aws resources
 
 # CDK intermediate topics
+
 ![alt text](images/image-3.png)
+
 ### CDk IDs
+
 when we create a construct of Bucket - we get a logicalID(required by CF to use this ID) and Physical ID(required by AWS) when we deploy the stack
 
 ### CF instrinsic functions
+
 Built-in functions to help manage our stacks
 ![alt text](images/image-4.png)
 If we want to choose one resource first to be created before another resource. This is important because one resource needs information from another resource. Here is the point where cloud formation instrinsic funtions come into place.
@@ -238,11 +246,19 @@ If we want to choose one resource first to be created before another resource. T
 The most popular used one is `ref` function - helps us reference different information around CF template
 
 ### Handling multiple stacks
+
 ![alt text](images/image-6.png)
 [CF best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
 ![alt text](images/image-7.png)
+
 ### Cross stack references
+
 Let's see how we can access values through references btw two stacks
+
 - First deploy - `cdk deploy PhotosStack`
--  Then deploy - `ck deploy PhotosHandlerStack` to access photos-bucket arn from above stack
+- Then deploy - `ck deploy PhotosHandlerStack` to access photos-bucket arn from above stack
 - but this is not a best practice
+
+### Sharing resources with CDK
+
+`cdk deploy --all` deploys the stacks in order we need as it is able to understand the dependency exists on photosstack to create photoshandlerstack

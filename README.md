@@ -74,4 +74,60 @@ Executing npm install...
 - "app": "npx ts-node --prefer-ts-exts bin/cdk-starter.ts" -> execute ts-node library executes typescript code & path to bin folder and our starter file
 https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html - whole documentation of aws cdk construct - https://github.com/aws/aws-cdk
 
+- deploy basic stack to AWS
+```
+abhis@Tinku MINGW64 ~/Desktop/AWS/AWS-CDK-TS-React/cdk-starter (main)
+$ aws s3 ls
+2024-10-21 03:00:33 cf-templates-**********-ap-south-1
+2024-10-21 03:00:05 cf-templates-**********-us-west-2
 
+abhis@Tinku MINGW64 ~/Desktop/AWS/AWS-CDK-TS-React/cdk-starter (main)
+$ cdk bootstrap
+ ⏳  Bootstrapping environment aws://AWS_ACCOUNT/ap-south-1...
+Trusted accounts for deployment: (none)
+Trusted accounts for lookup: (none)
+Using default execution policy of 'arn:aws:iam::aws:policy/AdministratorAccess'. Pass '--cloudformation-execution-policies' to customize.
+CDKToolkit: creating CloudFormation changeset...
+CDKToolkit |  0/12 | 3:35:06 AM | REVIEW_IN_PROGRESS   | AWS::CloudFormation::Stack | CDKToolkit User Initiated
+CDKToolkit |  0/12 | 3:35:12 AM | CREATE_IN_PROGRESS   | AWS::CloudFormation::Stack | CDKToolkit User Initiated
+....
+CDKToolkit |  0/12 | 3:35:14 AM | CREATE_IN_PROGRESS   | AWS::S3::Bucket         | StagingBucket
+....
+CDKToolkit |  1/12 | 3:35:16 AM | CREATE_IN_PROGRESS   | AWS::S3::Bucket         | StagingBucket Resource creation Initiated
+CDKToolkit |  2/12 | 3:35:16 AM | CREATE_COMPLETE      | AWS::ECR::Repository    | ContainerAssetsRepository
+CDKToolkit |  2/12 | 3:35:16 AM | CREATE_IN_PROGRESS   | AWS::IAM::Role          | LookupRole Resource creation Initiated
+CDKToolkit |  3/12 | 3:35:31 AM | CREATE_COMPLETE      | AWS::S3::Bucket         | StagingBucket 
+CDKToolkit |  3/12 | 3:35:32 AM | CREATE_IN_PROGRESS   | AWS::S3::BucketPolicy   | StagingBucketPolicy 
+.....
+CDKToolkit | 12/12 | 3:35:55 AM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CDKToolkit 
+ ✅  Environment aws://AWS_ACCOUNT/ap-south-1 bootstrapped.
+```
+- In Our CF , we have new stack - CDKToolKit stack - This stack includes resources needed to deploy AWS CDK apps into this environment
+- Inside Stack Resources - have an s3 bucket - StagingBucket - this bucket will contain files required by AWS CDK in order to deploy 
+```
+abhis@Tinku MINGW64 ~/Desktop/AWS/AWS-CDK-TS-React/cdk-starter (main)
+$ cdk deploy
+✨  Synthesis time: 5.99s
+CdkStarterStack: start: Building ****:current_account-current_region
+CdkStarterStack: success: Built *****:current_account-current_region
+CdkStarterStack: start: Publishing *****:current_account-current_region
+CdkStarterStack: success: Published *****:current_account-current_region
+Stack undefined
+CdkStarterStack: deploying... [1/1]
+CdkStarterStack: creating CloudFormation changeset...
+CdkStarterStack | 0/2 | 3:41:39 AM | REVIEW_IN_PROGRESS   | AWS::CloudFormation::Stack | CdkStarterStack User Initiated
+CdkStarterStack | 0/2 | 3:41:45 AM | CREATE_IN_PROGRESS   | AWS::CloudFormation::Stack | CdkStarterStack User Initiated
+CdkStarterStack | 0/2 | 3:41:47 AM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata) 
+CdkStarterStack | 0/2 | 3:41:47 AM | CREATE_IN_PROGRESS   | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata) Resource creation Initiated
+CdkStarterStack | 1/2 | 3:41:48 AM | CREATE_COMPLETE      | AWS::CDK::Metadata | CDKMetadata/Default (CDKMetadata) 
+CdkStarterStack | 2/2 | 3:41:48 AM | CREATE_COMPLETE      | AWS::CloudFormation::Stack | CdkStarterStack 
+ ✅  CdkStarterStack
+✨  Deployment time: 12.15s
+Stack ARN:
+arn:aws:cloudformation:ap-south-1:AWS_ACCOUNT:stack/CdkStarterStack/**********
+✨  Total time: 18.14s
+```
+- what cdk deploy did? - we have cdk.out file - contains the CF template that is actually deployed to AWS - everytime - does two things - generates templates & deploys
+cdk synth - will take our code and only generate a template
+
+- Important concept of CDK is CDK constructs & there are multiple types of constructs

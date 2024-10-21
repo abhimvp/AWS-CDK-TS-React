@@ -229,3 +229,10 @@ Eveen after we deleted our stack we can still see L2 and L3 buckets in S3 , beca
 ![alt text](images/image-3.png)
 ### CDk IDs
 when we create a construct of Bucket - we get a logicalID(required by CF to use this ID) and Physical ID(required by AWS) when we deploy the stack
+
+### CF instrinsic functions
+Built-in functions to help manage our stacks
+![alt text](images/image-4.png)
+If we want to choose one resource first to be created before another resource. This is important because one resource needs information from another resource. Here is the point where cloud formation instrinsic funtions come into place.
+![alt text](images/image-5.png)
+The most popular used one is `ref` function - helps us reference different information around CF template

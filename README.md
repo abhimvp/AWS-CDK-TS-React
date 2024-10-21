@@ -130,4 +130,10 @@ arn:aws:cloudformation:ap-south-1:AWS_ACCOUNT:stack/CdkStarterStack/**********
 - what cdk deploy did? - we have cdk.out file - contains the CF template that is actually deployed to AWS - everytime - does two things - generates templates & deploys
 cdk synth - will take our code and only generate a template
 
-- Important concept of CDK is CDK constructs & there are multiple types of constructs
+# Important concept of CDK is CDK constructs & there are multiple types of constructs
+
+Building blocks of our CDK application
+![alt text](images/image.png)
+![alt text](images/image-2.png)
+
+-> Also lets see how we can use CDK constructs to create diff aws resources

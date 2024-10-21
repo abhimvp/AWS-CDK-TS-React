@@ -262,3 +262,7 @@ Let's see how we can access values through references btw two stacks
 ### Sharing resources with CDK
 
 `cdk deploy --all` deploys the stacks in order we need as it is able to understand the dependency exists on photosstack to create photoshandlerstack
+
+### ASpects
+![alt text](images/image-8.png)
+![alt text](images/image-9.png)

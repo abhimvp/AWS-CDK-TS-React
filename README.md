@@ -285,3 +285,6 @@ API GW -> accessess -> AWS lambda -> accessess -> DynamoDB
 ### create AWS Lambda using CDk
 
 lambda code into services folder
+
+### APi gateway Stack
+which access the above created lambda

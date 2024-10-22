@@ -288,3 +288,6 @@ lambda code into services folder
 
 ### APi gateway Stack
 which access the above created lambda
+
+### CDK - DynamoDB
+lambda -> dynamoDB

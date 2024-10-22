@@ -264,9 +264,20 @@ Let's see how we can access values through references btw two stacks
 `cdk deploy --all` deploys the stacks in order we need as it is able to understand the dependency exists on photosstack to create photoshandlerstack
 
 ### ASpects
+
 ![alt text](images/image-8.png)
 ![alt text](images/image-9.png)
 
 ### deleting stacks
+
 ![alt text](images/image-10.png)
 we delete UiStack -> then ApiStack ->lambdaStack-> authStack -> dataStack
+
+# serverless project with CDK and typescript
+
+Create a CDK project from scratch , Link togther multiple stacks and resources
+API GW -> accessess -> AWS lambda -> accessess -> DynamoDB
+![alt text](images/image-11.png)
+
+- install dependencies `npm i -D aws-cdk aws-cdk-lib constructs` & `npm i -D typescript ts-node` & `npm i -D @types/node`
+- create `src` folder - contains infrastructure code and business logic 

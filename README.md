@@ -328,7 +328,7 @@ And it is not only a requirement or a concept for JavaScript, it is used in many
 bundles, to write TypeScript lambdas the right way.So in the next lecture we will write our lambdas with TypeScript and we will see how Esbuild helps us.
 
 `npm i -D @types/aws-lambda` # this means that we have types for the event and context in the hello.js lambda function
-`npm i uuid @types/uuid` - generate random IDs 
+`npm i uuid @types/uuid` - generate random IDs
 `npm install -D esbuild` - to work with NodeJsFunction
 
 AWS SDK - a library helps us access other AWS resources from our account

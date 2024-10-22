@@ -280,14 +280,49 @@ API GW -> accessess -> AWS lambda -> accessess -> DynamoDB
 ![alt text](images/image-11.png)
 
 - install dependencies `npm i -D aws-cdk aws-cdk-lib constructs` & `npm i -D typescript ts-node` & `npm i -D @types/node`
-- create `src` folder - contains infrastructure code and business logic 
+- create `src` folder - contains infrastructure code and business logic
 
 ### create AWS Lambda using CDk
 
 lambda code into services folder
 
 ### APi gateway Stack
+
 which access the above created lambda
 
 ### CDK - DynamoDB
+
 lambda -> dynamoDB
+
+# Serverless: AWS Lambda - bundling,testing and debugging
+
+1 - Challenges - talk
+2 - CDK NodeJS Lambda solves these challenges
+3 - Test and Read logs with AWS CloudWatch
+4 - AWS SDK
+5 - Debug AWS lambdas with VSCode
+
+AWS Lambda Code Challenges:
+1 Dependency management
+2 Typescript compilation and bundling
+
+![alt text](images/image-12.png)
+
+So when we have a big application or even a small application, it's runnable code is made up from two parts.
+Our actual application code, which we wrote ourselves and the dependencies that we need for our project.
+For example, if we are writing a lambda, most likely we will have a dependency concerning AWS SDK
+as well Other dependencies.Well, and if we are talking, we are talking about dependencies.
+Here on the right we see the dependencies currently inside our project.(Node_modules)As you can see, much of them are development dependencies like AWS, CDK, like TypeScript and many,many more.Well, how can we make sure that when we are deploying our code to be run, we are only deploying our dependencies and not our development dependencies?
+
+Lambda runtimes from AWS already have included this AWS SDK.So when we are deploying our code, we should not deploy this AWS SDK dependency.
+
+And the other problem, the TypeScript compilation and bundling.
+![alt text](images/image-13.png)
+
+And again, let's think about our runnable application, which is written in TypeScript.We are writing our code in TypeScript.
+We have our TypeScript code and our dependencies.Of course, that in order to be run, TypeScript code needs to be compiled or transpiled to JavaScript.
+How we can do this?We can do it with the TSC command.We are taking TypeScript code, we are generating JavaScript code and again, then we need the dependencies
+and talking about dependencies, JavaScript and we might use a library which offers a lot of features,
+but from that library we might only use a very small part.It doesn't make sense to deploy all the library when we are only using like a function or two from a big library.Well, when we are trying to only import what we use from a library in JavaScript world, this is called tree shaking.So we should also do this for us to write run our application.When this operation of taking a code from maybe multiple files and generating one single file only with runnable code is called `bundling`.
+And it is not only a requirement or a concept for JavaScript, it is used in many software applications.When you have one big bundle, instead of having your code all over the place in many files bundled called code runs faster.And of course to be fast, the bundles needs to be as small as possible.Well, the solution for all, for all the problems which I presented in this presentation comes from a CDK construct called NodeJS function.This function resolves or this construct resolves all the problem that I presented until now.It bundles all the code with tree shaking.It compiles typescript to JavaScript, it leaves out the SDK dependencies.It is completely editable if we want to maybe tweak some things around.I remember the times where before Node this construct from NodeJS from CDK when I was working on a serverless projects written in TypeScript, we had big configuration files from Webpack.Another bundling solution, the bundling solution that CDK uses for the moment and I guess it will use it forever is Esbuild and this is a library which takes our code and generates one unitary bundle.When I remember when I was using Webpack it was a hard to use, it was slow and it was very easy to mess up.But for the moment at this point we are we have all the things we need in order to write typescript
+bundles, to write TypeScript lambdas the right way.So in the next lecture we will write our lambdas with TypeScript and we will see how Esbuild helps us.

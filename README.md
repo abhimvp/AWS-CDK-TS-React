@@ -326,3 +326,11 @@ and talking about dependencies, JavaScript and we might use a library which offe
 but from that library we might only use a very small part.It doesn't make sense to deploy all the library when we are only using like a function or two from a big library.Well, when we are trying to only import what we use from a library in JavaScript world, this is called tree shaking.So we should also do this for us to write run our application.When this operation of taking a code from maybe multiple files and generating one single file only with runnable code is called `bundling`.
 And it is not only a requirement or a concept for JavaScript, it is used in many software applications.When you have one big bundle, instead of having your code all over the place in many files bundled called code runs faster.And of course to be fast, the bundles needs to be as small as possible.Well, the solution for all, for all the problems which I presented in this presentation comes from a CDK construct called NodeJS function.This function resolves or this construct resolves all the problem that I presented until now.It bundles all the code with tree shaking.It compiles typescript to JavaScript, it leaves out the SDK dependencies.It is completely editable if we want to maybe tweak some things around.I remember the times where before Node this construct from NodeJS from CDK when I was working on a serverless projects written in TypeScript, we had big configuration files from Webpack.Another bundling solution, the bundling solution that CDK uses for the moment and I guess it will use it forever is Esbuild and this is a library which takes our code and generates one unitary bundle.When I remember when I was using Webpack it was a hard to use, it was slow and it was very easy to mess up.But for the moment at this point we are we have all the things we need in order to write typescript
 bundles, to write TypeScript lambdas the right way.So in the next lecture we will write our lambdas with TypeScript and we will see how Esbuild helps us.
+
+`npm i -D @types/aws-lambda` # this means that we have types for the event and context in the hello.js lambda function
+`npm i uuid @types/uuid` - generate random IDs 
+`npm install -D esbuild` - to work with NodeJsFunction
+
+AWS SDK - a library helps us access other AWS resources from our account
+
+`npm i @aws-sdk/client-s3`

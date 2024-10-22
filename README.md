@@ -281,3 +281,7 @@ API GW -> accessess -> AWS lambda -> accessess -> DynamoDB
 
 - install dependencies `npm i -D aws-cdk aws-cdk-lib constructs` & `npm i -D typescript ts-node` & `npm i -D @types/node`
 - create `src` folder - contains infrastructure code and business logic 
+
+### create AWS Lambda using CDk
+
+lambda code into services folder

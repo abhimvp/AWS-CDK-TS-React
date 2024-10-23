@@ -40,6 +40,25 @@ With DynamoDB we can write simple queries not complicated queries like SQL
 - How we can get fast feedback from our implementation
 
 ### Scan operation
-- when we do local testing GET scanCOmmand we get items from our table and that is a marshalled result
+
+- when we do local testing GET scanCOmmand we get items from our table and that is a marshalled result { S: spaceId }
 
 ### GetItem Operation
+
+### Marshalling
+
+- when we retrive from our DB we get result wrapped inside an object which states their types id : { S: spaceId**\*\***\***\*\*** } which doesn't ook great
+- when we put items into our DB we need to take each property of our item and specify it's type otherwose we will get error - cannot read properties of undefined when we make query with dynamoDB
+
+```
+Item: {
+        id: { S: randomID },
+        location: { S: item.location },
+      },
+```
+
+- There are two solutions with this small problem - marshalling or unmarshalling
+  - marshalling will add above kind of attribute type defintions to our object
+  - unmarshalling will remove this attribute types right there
+  - both of them part of `npm i @aws-sdk/util-dynamodb`
+  - other is using DDBDocumentClient `npm i @aws-sdk/lib-dynamodb`

@@ -13,9 +13,9 @@ import { handler } from "../src/services/spaces/handler";
 handler(
   {
     httpMethod: "GET",
-    //   body: JSON.stringify({
-    //     location: "Launcher-hyderabad",
-    //   }),
+    // queryStringParameters: {
+    //     id: 'b501aa9a-dd55-47ce-8df8-44fda2b64afa'
+    // }
   } as any,
   {} as any
 );

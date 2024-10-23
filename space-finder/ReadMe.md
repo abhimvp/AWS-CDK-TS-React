@@ -18,3 +18,7 @@ https://stackoverflow.com/questions/41425511/aws-api-gateway-lambda-multiple-end
 ![alt text](images/image-2.png)
 ![alt text](images/image-3.png)
 ![alt text](images/image-4.png)
+
+# Implementation of our lambda
+the lambda defined in the hello.ts will serve the spaces table
+create spaces folder which serves the spaces table inside services folder

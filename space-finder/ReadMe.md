@@ -34,6 +34,7 @@ With DynamoDB we can write simple queries not complicated queries like SQL
 
 ### Put Item
 
-In order for us to implement AWS dynamoDB we need to import it's SDK , we need to install it `npm i @aws-sdk/client-dynamodb`.
-When we are creating a entry into a DynamoDB , we need to pass it a ID , before even getting the data from our event, we should have a random ID.
-Also lambda needs to have permission to write to dynamoDB
+- In order for us to implement AWS dynamoDB we need to import it's SDK , we need to install it `npm i @aws-sdk/client-dynamodb`.
+- When we are creating a entry into a DynamoDB , we need to pass it a ID , before even getting the data from our event, we should have a random ID.
+- Also lambda needs to have permission to write to dynamoDB
+- How we can get fast feedback from our implementation

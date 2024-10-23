@@ -5,6 +5,7 @@ import {
   Context,
 } from "aws-lambda";
 import { postSpaces } from "./PostSpaces";
+import { getSpaces } from "./GetSpaces";
 // import { v4 } from "uuid";
 
 // initialize dynamodb client to re-use
@@ -21,11 +22,12 @@ async function handler(
   try {
     switch (event.httpMethod) {
       case "GET":
-        message = `Hello from GET `;
-        break;
+        const getResponse = getSpaces(event, ddbClient);
+        return getResponse;
+        
       case "POST":
-        const response = await postSpaces(event, ddbClient);
-        return response;
+        const postResponse  = await postSpaces(event, ddbClient);
+        return postResponse ;
 
       default:
         break;

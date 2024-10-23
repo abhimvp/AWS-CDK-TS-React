@@ -18,11 +18,25 @@ export class LambdaStack extends Stack {
     const spacesLambda = new NodejsFunction(this, "SpacesLambda", {
       runtime: Runtime.NODEJS_18_X,
       handler: "handler",
-      entry: join(__dirname, "..", "..", "services","spaces","handler.ts"),
+      entry: join(__dirname, "..", "..", "services", "spaces", "handler.ts"),
       environment: {
         TABLE_NAME: props.spacesTable.tableName,
       },
     });
+
+    spacesLambda.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: [
+          "dynamodb:PutItem",
+          // 'dynamodb:UpdateItem',
+          // 'dynamodb:DeleteItem',
+          // 'dynamodb:Scan',
+          // 'dynamodb:Query'
+        ],
+        resources: [props.spacesTable.tableArn],
+      })
+    );
 
     // helloLambda.addToRolePolicy(new PolicyStatement({
     //     effect: Effect.ALLOW,

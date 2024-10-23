@@ -62,3 +62,7 @@ Item: {
   - unmarshalling will remove this attribute types right there
   - both of them part of `npm i @aws-sdk/util-dynamodb`
   - other is using DDBDocumentClient `npm i @aws-sdk/lib-dynamodb`
+
+### Update Item
+- request type PUT
+- add queryParameter and content

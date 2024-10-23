@@ -24,7 +24,7 @@ export async function getSpaces(
         const unmashalledItem = unmarshall(getItemResponse.Item); // Convert a DynamoDB record into a JavaScript object.
         return {
           statusCode: 200,
-          body: JSON.stringify("unmarshalledItem is : " + unmashalledItem),
+          body: JSON.stringify(unmashalledItem),
         };
       } else {
         return {

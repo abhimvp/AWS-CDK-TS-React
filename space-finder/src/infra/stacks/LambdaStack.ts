@@ -29,9 +29,10 @@ export class LambdaStack extends Stack {
         effect: Effect.ALLOW,
         actions: [
           "dynamodb:PutItem",
-          // 'dynamodb:UpdateItem',
-          // 'dynamodb:DeleteItem',
-          // 'dynamodb:Scan',
+          'dynamodb:GetItem',
+          'dynamodb:UpdateItem',
+          'dynamodb:DeleteItem',
+          'dynamodb:Scan',
           // 'dynamodb:Query'
         ],
         resources: [props.spacesTable.tableArn],

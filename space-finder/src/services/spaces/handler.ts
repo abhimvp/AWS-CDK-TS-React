@@ -29,6 +29,7 @@ async function handler(
         return getResponse;
       case "POST":
         const postResponse = await postSpaces(event, ddbClient);
+        console.log(postResponse);
         return postResponse;
       case "PUT":
         const putResponse = await updateSpace(event, ddbClient);

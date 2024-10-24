@@ -64,10 +64,14 @@ Item: {
   - other is using DDBDocumentClient `npm i @aws-sdk/lib-dynamodb`
 
 ### Update Item
+
 - request type PUT
 - add queryParameter and content
 
 ### Data validation with Typescript
+
 - Here firstly we have to think how we want our files to look like, because at some point this backend application will be linked to frontend and the way `they will communicate it will be by an interface`.SO the backend and frontend must come together and know what exact type of objects they will expect.
 - create `Model` file - Think about how our reservation , our space entry will look like
 - Let's create a function which will assert certain entries as space entry or not in `shared` Folder - what's contained in this folder will be shared with multiple lambdas
+
+### DB queries deployment and test

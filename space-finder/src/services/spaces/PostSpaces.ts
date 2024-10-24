@@ -19,7 +19,7 @@ export async function postSpaces(
       Item: marshall(item), // takes all attributes of this item and add those attribute types
     })
   );
-  console.log(result);
+  // console.log(result);
   return {
     statusCode: 201,
     body: JSON.stringify(`Space created with id: ${randomId}`),

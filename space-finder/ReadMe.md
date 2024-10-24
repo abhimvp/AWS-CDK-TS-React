@@ -104,20 +104,25 @@ Optimizations that you make will make your bundle smaller, your code faster & pr
   private userPool: UserPool;
   private userPoolClient: UserPoolClient;
 ```
+
 ### create and activate Cognito User
+
 - create User - `console` - Force change password in users confirmation Status
 - Activate User - `using CLI` - `aws cognito-idp admin-set-user-password --user-pool-id ap-south-1_***** --username abhimvp --password "********" --permanent` - refresh and we see it's confirmed in confirmation status
 - install AWS Amplify and simulate APP
 
 ### Generate Tokens with AWS Amplify
+
 - Now that we have an activated Cognito user, we can use it in order to generate tokens using Cognito
 - reference code : [code](https://github.com/alexhddev/CDK-course-resources/commit/5de917afd440a8ac5b2c63f6c4fd3350b44d0764)
 - we need two packages - we need the AWS Amplify package - `npm i aws-amplify` - we also need a AWS install AWS amplify Slash auth - `npm i @aws-amplify/auth`
 
 ### Understand how JWT Tokens Work
+
 - https://jwt.io/ - This is a website which shows us the information about different tokens.
 
 ### Securing API's with Congito
+
 - Let's now use the Cognito user pool that we created in the previous sections
 - Let's use it to authorize or to secure to add security to our spaces API.
 - Currently anyone if this API is deployed, anyone over the internet can access this API
@@ -131,5 +136,16 @@ Optimizations that you make will make your bundle smaller, your code faster & pr
 ### Access control with groups
 
 - restrict access to login users
-    - Basically, with the current implementation, all the users have the same rights
-    - Well, we can change this by creating groups and then adding a user to a group.- `private createAdminsGroup`
+  - Basically, with the current implementation, all the users have the same rights
+  - Well, we can change this by creating groups and then adding a user to a group.- `private createAdminsGroup`
+
+# AWS Cognito Identity pools
+
+- We have a user which is logged in into a web or mobile app, and he needs to send a file to a outside destination, like a drive, like a folder, like an S3 bucket, a file that can be anything, a profile photo , report or any general file.
+- Well, how can we solve this issue?
+    - One solution would be to build an API and to send that file in the body of the request - This solution would work, but would work only for smaller file files - And it is a little complicated because we need to encode and to decode that file - A better solution for this small problem, but very popular use case would be to directly call the SDK,the S3 SDK in the web app.
+    - And in this section we will see how we can authorize those calls no matter the environment they are , It can be a web or mobile or even a desktop application.
+![alt text](images/image-11.png)
+- we will create this cognito identity pools inside the AWS console.
+- And then with CDK we will talk about roles and then we will generate these temporary credentials, we will test them locally, not inside the UI because at this point we don't have a UI,understand how we can use them and how we can test them Well enough talking.
+- `The identity pools control what those users can do.` - Authenticated identity sources -  Configure identity providers to be the source of your authenticated identities. Amazon Cognito issues temporary credentials in exchange for tokens or assertions from your providers.

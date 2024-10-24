@@ -75,3 +75,6 @@ Item: {
 - Let's create a function which will assert certain entries as space entry or not in `shared` Folder - what's contained in this folder will be shared with multiple lambdas
 
 ### DB queries deployment and test
+
+### 
+Optimizations that you make will make your bundle smaller, your code faster & prevent lot of problems & esbuild will not make all the complicated ifs and checks from a UUID.It will just use this random crypto uuid from this native NodeJS module.

@@ -154,3 +154,5 @@ Optimizations that you make will make your bundle smaller, your code faster & pr
 ### Generating AWS Temporary credentials
 - `npm i @aws-sdk/client-cognito-identity`
 - `npm i @aws-sdk/credential-providers`
+
+### Testing Temp AWS Credentials

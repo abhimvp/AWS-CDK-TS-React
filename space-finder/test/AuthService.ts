@@ -7,9 +7,9 @@ const awsRegion = "ap-south-1";
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: "ap-south-1_Sjq****",
-      userPoolClientId: "6ericd7oqng3tr80u8****",
-      identityPoolId: "ap-south-1:46417e25-c497-46fc-893b-e9b0ad****",
+      userPoolId: "ap-south-1_S****",
+      userPoolClientId: "6ericd7oqng3tr80u83v****",
+      identityPoolId: "ap-south-1:46417e25-c497-46fc-893b-e9b****",
     },
   },
 });
@@ -39,7 +39,7 @@ export class AuthService {
     const cognitoIdentityPool = `cognito-idp.${awsRegion}.amazonaws.com/ap-south-1_****`;
     const cognitoIdentity = new CognitoIdentityClient({
       credentials: fromCognitoIdentityPool({
-        identityPoolId: "ap-south-1:46417e25-c497-46fc-893b-e9b0ada****",
+        identityPoolId: "ap-south-1:46417e25-c497-46fc-893b-e9****",
         logins: {
           [cognitoIdentityPool]: idToken,
         },

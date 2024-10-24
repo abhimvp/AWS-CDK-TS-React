@@ -150,3 +150,7 @@ Optimizations that you make will make your bundle smaller, your code faster & pr
 
 ### IAM Roles in CDK
 - we will see how we can attach some roles to our new identity pools.
+
+### Generating AWS Temporary credentials
+- `npm i @aws-sdk/client-cognito-identity`
+- `npm i @aws-sdk/credential-providers`

@@ -142,10 +142,11 @@ Optimizations that you make will make your bundle smaller, your code faster & pr
 # AWS Cognito Identity pools
 
 - We have a user which is logged in into a web or mobile app, and he needs to send a file to a outside destination, like a drive, like a folder, like an S3 bucket, a file that can be anything, a profile photo , report or any general file.
-- Well, how can we solve this issue?
-    - One solution would be to build an API and to send that file in the body of the request - This solution would work, but would work only for smaller file files - And it is a little complicated because we need to encode and to decode that file - A better solution for this small problem, but very popular use case would be to directly call the SDK,the S3 SDK in the web app.
-    - And in this section we will see how we can authorize those calls no matter the environment they are , It can be a web or mobile or even a desktop application.
-![alt text](images/image-11.png)
+- Well, how can we solve this issue? - One solution would be to build an API and to send that file in the body of the request - This solution would work, but would work only for smaller file files - And it is a little complicated because we need to encode and to decode that file - A better solution for this small problem, but very popular use case would be to directly call the SDK,the S3 SDK in the web app. - And in this section we will see how we can authorize those calls no matter the environment they are , It can be a web or mobile or even a desktop application.
+  ![alt text](images/image-11.png)
 - we will create this cognito identity pools inside the AWS console.
 - And then with CDK we will talk about roles and then we will generate these temporary credentials, we will test them locally, not inside the UI because at this point we don't have a UI,understand how we can use them and how we can test them Well enough talking.
-- `The identity pools control what those users can do.` - Authenticated identity sources -  Configure identity providers to be the source of your authenticated identities. Amazon Cognito issues temporary credentials in exchange for tokens or assertions from your providers.
+- `The identity pools control what those users can do.` - Authenticated identity sources - Configure identity providers to be the source of your authenticated identities. Amazon Cognito issues temporary credentials in exchange for tokens or assertions from your providers.
+
+### IAM Roles in CDK
+- we will see how we can attach some roles to our new identity pools.

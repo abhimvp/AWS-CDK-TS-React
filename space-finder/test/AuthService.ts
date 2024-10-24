@@ -5,8 +5,8 @@ const awsRegion = "ap-south-1";
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: "ap-south-1_SjqyGIZaF",
-      userPoolClientId: "6ericd7oqng3tr80u83v9dm9te",
+      userPoolId: "ap-south-1_****",
+      userPoolClientId: "*********",
     },
   },
 });

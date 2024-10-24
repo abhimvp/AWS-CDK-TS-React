@@ -76,5 +76,60 @@ Item: {
 
 ### DB queries deployment and test
 
-### 
+### Bundle Optimization
+
 Optimizations that you make will make your bundle smaller, your code faster & prevent lot of problems & esbuild will not make all the complicated ifs and checks from a UUID.It will just use this random crypto uuid from this native NodeJS module.
+
+# Securing API's with AWS Cognito
+
+![alt text](images/image-8.png)
+
+- AWS Cognito is combination of two important services - User Pools and Identity Pools
+  ![alt text](images/image-9.png)
+  ![alt text](images/image-10.png)
+- Well, a user, let's say that he is registered to AWS Cognito and there he has a username and a password.
+- A user first will log in to cognito and if these credentials are correct.
+- AWS cognito will return back a JWT token, a JSON web token.
+- Well, with this token, the user can simply now access a secure API or other component.
+- with this JWT token, the user can access secured data.
+- create a general userpool in AWS account - console
+
+### user Pools with CDK
+
+- this Auth stack will be a little more complex and will grow bigger throughout this course, We will organize things into private methods & call them inside the constructor.
+- And this way we know exactly what is happening inside our class because we are using a programming language & let's take advantage of it.
+- because we will need this user pool throughout this class and even outside this class & let's have a private user pool & client
+
+```
+  private userPool: UserPool;
+  private userPoolClient: UserPoolClient;
+```
+### create and activate Cognito User
+- create User - `console` - Force change password in users confirmation Status
+- Activate User - `using CLI` - `aws cognito-idp admin-set-user-password --user-pool-id ap-south-1_***** --username abhimvp --password "********" --permanent` - refresh and we see it's confirmed in confirmation status
+- install AWS Amplify and simulate APP
+
+### Generate Tokens with AWS Amplify
+- Now that we have an activated Cognito user, we can use it in order to generate tokens using Cognito
+- reference code : [code](https://github.com/alexhddev/CDK-course-resources/commit/5de917afd440a8ac5b2c63f6c4fd3350b44d0764)
+- we need two packages - we need the AWS Amplify package - `npm i aws-amplify` - we also need a AWS install AWS amplify Slash auth - `npm i @aws-amplify/auth`
+
+### Understand how JWT Tokens Work
+- https://jwt.io/ - This is a website which shows us the information about different tokens.
+
+### Securing API's with Congito
+- Let's now use the Cognito user pool that we created in the previous sections
+- Let's use it to authorize or to secure to add security to our spaces API.
+- Currently anyone if this API is deployed, anyone over the internet can access this API
+- if we check any operation of this API(console), you will see that at the method request we have an entry called Authorization
+- Well, at this point we can add an authorizer which can be either a Lambda authorizer or a Cognito user
+- First of all, in order to be able to add this authorization to our API, we need to configure it from the Authorizers entry.
+- at this point we can create a new authorizer using the AWS console.
+- `since we are using CDK, let's do this inside CDK`
+- what we want right here is to export or to make public our user pool because we need the a reference to this user pool inside our API to create a, uh, security layer.
+
+### Access control with groups
+
+- restrict access to login users
+    - Basically, with the current implementation, all the users have the same rights
+    - Well, we can change this by creating groups and then adding a user to a group.- `private createAdminsGroup`

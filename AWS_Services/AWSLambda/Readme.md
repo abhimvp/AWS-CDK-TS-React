@@ -90,3 +90,116 @@ exports.handler = async function(event, context) {
 ```
 
 ### Logging and Error handling within Lambda Functions
+
+- If you are using callback style Lambda handler, like so, then you can throw errors using the first argument to the callback function.
+- And, if you’re using the Async/Await type lambda handler, then you can simply throw a error using a throw statement
+- And of course, you can wrap your code within a try catch block for better error handling.
+  ![alt text](images/image.png)
+- And these messages printed to the console will get logged automatically to the AWS CloudWatch Service.
+
+#### Passing parameters via the event object
+
+- This function is expecting to receive PATH Parameters as part of a HTTP GET request coming n from Amazon API Gateway.
+- A PATH parameter is mandatory parameter on an HTTP request while Query String parameter,by convention, is optional.
+- `apigwURL/test/greetme/Riyaz?param=value&param2=value2` here Riyaz is path parameter , param , param2 is query string parameters & greetme is test stage api endpoint
+- And all these parameters will be available in the event object that gets passed to our Lambda handler.
+
+```
+const moment = require('moment'); # npm i moment --save
+const greeting = {
+    "en": "Hello",
+    "fr": "Bonjour",
+    "hi": "Namaste",
+    "es": "Hola",
+    "pt": "Olá",
+    "ur": "Assalamo aleikum",
+	"it": "Ciao",
+    "de": "Hallo"
+}
+
+exports.handler = async (event) => {
+    let name = event.pathParameters.name;
+    let {lang, ...info} = event.queryStringParameters || {};
+
+    let message = `${greeting[lang] ? greeting[lang] : greeting['en'] } ${name}`;
+    let response = {
+        message: message,
+        info: info,
+        timestamp: moment().unix()
+    }
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(response)
+    }
+}
+```
+
+- And Path Parameters is a predefined attribute of the API Gateway AWS Proxy event.
+- So language will go in to the variable lang and rest of the query string parameters will go in to the info variable.
+- API Gateway expects the Lambda function to return well-formed HTTP response instead of just the data or just the response body.
+
+  - We have to return an HTTP response object that has a status code and body at the bare , we can return our response object in the HTTP response body, as a JSON string using
+
+  # handling s3 events in Lambda
+
+```
+const im = require('imagemagick');
+const fs = require('fs');
+const os = require('os');
+const uuidv4 = require('uuid/v4');
+const {promisify} = require('util');
+const AWS = require('aws-sdk');
+
+
+const resizeAsync = promisify(im.resize);
+const readFileAsync = promisify(fs.readFile);
+const unlinkAsync = promisify(fs.unlink);
+
+AWS.config.update({ region: 'us-west-2' });
+const s3 = new AWS.S3();
+
+exports.handler = async (event) => {
+let filesProcessed = event.Records.map( async (record) => {
+let bucket = record.s3.bucket.name;
+let filename = record.s3.object.key;
+
+        // Get file from S3
+        var params = {
+            Bucket: bucket,
+            Key: filename
+        };
+        let inputData = await s3.getObject(params).promise();
+
+        // Resize the file
+        let tempFile = os.tmpdir() + '/' + uuidv4() + '.jpg';
+        let resizeArgs = {
+            srcData: inputData.Body,
+            dstPath: tempFile,
+            width: 150
+        };
+        await resizeAsync(resizeArgs);
+
+        // Read the resized file
+        let resizedData = await readFileAsync(tempFile);
+
+        // Upload the new file to s3
+        let targetFilename = filename.substring(0, filename.lastIndexOf('.')) + '-small.jpg';
+        var params = {
+            Bucket: bucket + '-dest',
+            Key: targetFilename,
+            Body: new Buffer(resizedData),
+            ContentType: 'image/jpeg'
+        };
+
+        await s3.putObject(params).promise();
+        return await unlinkAsync(tempFile);
+    });
+
+    await Promise.all(filesProcessed);
+    console.log("done");
+    return "done";
+
+}
+
+```

@@ -1,0 +1,46 @@
+# All about AWS Lambda
+
+- AWS Lambda is an event driven serverless computing platform or a compute service provided by AWS
+- The code that we run on AWS Lambda is called as a lambda function
+- It runs whenever it's triggered by a preconfigured event source like s3 file uploads ,API Gateway calls , changes to dynamoDB table data , cloudwatch events , SNS notifications , third party API's , Iot Devices so on.
+- no billing for the idle time , we are charged only for the time our lambda functions run and billing is done in increments of 100 milliseconds of compute time.
+  - so if a lambda function runs for 90 milliseconds , we'd be billed for just about 100 milliseconds , while if it runs for say 200 milliseconds, we’ll be billed for that 200 milliseconds.
+  - And about 1 million requests per month are free.
+  - AWS Lambda is very low cost and does not require any upfront investment.
+- There are various runtimes that are available – C# or DOT NET Core, Google Go, Java, Node , Python
+- Handler is Index DOT handler, which means the function with name Handler located inside index DOT JS file. when a typescript file is compiled it outputs .js file which will be uploaded to lambda
+- environment variables: you can add key-value pairs that the function code needs at the runtime.you can add environment specific constants or API keys here & then you can access them inside your code.
+  - If the values of these environment variables are sensitive, then you can also explicitly encrypt them using this KMS service.
+  - And if you do so, you’ll also need to decrypt them within your function code.
+- we have Tags, Tags can be used to group and filter your functions.These are case-sensitive key value pairs
+- Execution role is the Lambda execution role - To view the resources and actions that your function has permission to access
+- You can also adjust the max memory that your function requires - its worth mentioning here that the CPU resources allocated to the function are always in proportion to the memory size that we choose here.
+  - You can choose memory from 128 MB all the way up to 3 THOUSAND and EIGHT MB
+  - And then you can set timeout in seconds.You can set this value anywhere from 1 second to up to 15 minutes.
+  - So maximum amount of time any Lambda function can run is about 15 minutes.
+  - Timeout is one of the essential considerations when building serverless apps.
+- Ideally, your Lambda functions should be designed to perform single-specific task and not perform several tasks
+- You can segregate your application logic in multiple Lambda functions, each performing one single specific task.
+- This approach is often used in microservices architectures and such microservices based architectures are best suited for serverless applications.
+- we have VPC settings under the Network section.Here you can attach your Lambda function to a VPC.You can simply choose your VPC and add desire subnets, at least two of them & VPC Security Group
+  - When you attach a Lambda function to a VPC, the function will run within that VPC & will have access only to the resources inside the VPC.Thats means, it will lose access to the resources outside the VPC.It will also lose access to the internet.
+  - And in case it requires internet access, you need to open appropriate outbound connections in the selected security group and the VPC will also require a NAT gateway in that case.
+- you can define DLQs or Dead Letter Queues.These are useful when Lambda function ends up in errors even after multiple retries.So if a Lambda function errors out, Lambda can send this event payload either to an SQS queue or as SNS notification.
+- we have concurrency limits.Here we define the maximum number of concurrent executions possible for your Lambda function.All AWS accounts receive a concurrency limit of 1000 and this is applied across the Lambda functions in your AWS account.
+  - If you reserve concurrency limit for a particular function, then remaining concurrency limit will be shared by other Lambda functions present in your account.
+- Auditing and Compliance can be set up using AWS CloudTrail service , allows you to log the function’s invocations inside CloudTrail if your organization requires that for auditing and compliance purposes.
+- The Throttle option can be used to throttle your lambda function and you can use this in emergency purpose
+
+### Permission Model
+- AWS Lambda uses a decoupled permissions model.
+    - The service or event that triggers the Lambda function only requires the necessary permissions to invoke the Lambda function.
+- When you add an event trigger to your Lambda function, it is automatically assigned an appropriate IAM policy to invoke this Lambda function.
+    - This role is called as Lambda invocation policy or Function policy.
+- We can see list of services our Lambda function has access to.Clicking on the box will show you the specific resources and actions that this function’s code has access to.
+    - These permissions are called as Lambda execution role.
+- in effect there are two sets of IAM permissions applied here.
+    - The invocation permissions via the function policy and the execution permissions via the execution role.
+    - The function policy is used by the triggering event or the service to invoke the Lambda , function while the execution role is used by the Lambda function to access different AWS services that it depends on.
+    - The function policy and execution role are independent of each other.
+- Different event sources that trigger the Lambda function are not required to have the permissions that Lambda function code requires to complete its job.
+- Thus the two are effectively decoupled thereby improving our application's security.

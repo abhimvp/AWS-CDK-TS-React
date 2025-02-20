@@ -334,3 +334,7 @@ bundles, to write TypeScript lambdas the right way.So in the next lecture we wil
 AWS SDK - a library helps us access other AWS resources from our account
 
 `npm i @aws-sdk/client-s3`
+
+## From Udemy-Riyaz-BrushUpBasics
+
+- refer notes offline as well.

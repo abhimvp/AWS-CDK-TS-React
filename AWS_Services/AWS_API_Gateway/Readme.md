@@ -41,3 +41,36 @@
   - Once that is set, we have two options here, URL Query String Parameters and HTTP Request headers , So we can add headers here.And `if those headers are present on the incoming request, only then that request will be processed further`.And here you can add query string parameters.So in our case, let’s say we want a particular query string parameter, say lang to be present on the request.And then you can choose the checkbox under Required.This will make the API Gateway to validate the incoming request before it sends it to our Lambda function.And if the request does not have the query string parameter named lang, it won’t be processed further
 
 #### POST Request Example - Creating Lambda Function
+
+```
+exports.handler = async (event) => {
+    let {operand1, operand2} = event.input;
+    let result;
+    switch(event.operation) {
+        case 'add':
+            result = operand1 + operand2;
+            break;
+
+        case 'subtract':
+            result = operand1 - operand2;
+            break;
+
+        case 'multiply':
+            result = operand1 * operand2;
+            break;
+
+        case 'divide':
+            result = operand1 / operand2;
+            break;
+
+        default:
+            result = null;
+    }
+
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify(result)
+    };
+    return response;
+};
+```

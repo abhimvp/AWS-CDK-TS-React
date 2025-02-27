@@ -17,7 +17,7 @@ exports.handler = async (event) => {
     timestamp: moment().unix(),
   };
 
-  // return response; not a good HTTP response object that API Gateway expects
+  // return response; not a good HTTP response object t hat API Gateway expects
   return {
     statusCode: 200,
     body: JSON.stringify(response),
